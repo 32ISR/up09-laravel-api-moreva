@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,3 +10,13 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::post('/register', [AuthController::class, 'register']); 
+
+Route::post('/login', [AuthController::class, 'login']); 
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('/bookings', [BookingController::class, 'index']);
+    Route::post('/bookings', [BookingController::class, 'create']); 
+    Route::get('/bookings/{booking}', [BookingController::class, 'show']); 
+    Route::patch('/bookings/', [BookingController::class, 'update']); 
+    Route::delete('/bookings/', [BookingController::class, 'destroy']); 
+}); 
