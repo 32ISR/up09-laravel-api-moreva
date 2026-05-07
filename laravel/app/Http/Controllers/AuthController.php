@@ -56,4 +56,10 @@ class AuthController extends Controller
         ], 200);
 
     }
+
+    public function logout(Request $request) {
+        $request->user()->currentAccessToken()->delete();
+
+        return responce()->json(['message' => 'Сессия успешно уничтожена'], 200);
+    }
 }
